@@ -1,0 +1,75 @@
+// Core colors
+$primary-color: #0277BD !default;
+$primary-color-dark: darken($primary-color, 3%) !default;
+$primary-color-light: lighten($primary-color, 3%) !default;
+$secondary-color: lighten($primary-color, 56.5%) !default;
+$secondary-color-dark: darken($secondary-color, 3%) !default;
+$secondary-color-light: lighten($secondary-color, 3%) !default;
+
+// Gray colors
+$dark-color: #454D5D !default;
+$light-color: #FFFFFF !default;
+$gray-color: lighten($dark-color, 40%) !default;
+$gray-color-dark: darken($gray-color, 25%) !default;
+$gray-color-light: lighten($gray-color, 20%) !default;
+
+$border-color: lighten($dark-color, 60%) !default;
+$border-color-dark: darken($border-color, 10%) !default;
+$border-color-light: lighten($dark-color, 65%) !default;
+$bg-color: lighten($dark-color, 66%) !default;
+$bg-color-dark: darken($bg-color, 3%) !default;
+$bg-color-light: $light-color !default;
+
+// Control colors
+$success-color: #4CAF50 !default;
+$warning-color: #FFC107 !default;
+$error-color: #F44336 !default;
+
+// Other colors
+$code-color: #EF9A9A !default;
+$highlight-color: #FFF59D !default;
+$body-bg: $bg-color-light !default;
+$body-font-color: lighten($dark-color, 5%) !default;
+$link-color: $secondary-color-dark !default;
+$link-color-dark: darken($link-color, 10%) !default;
+
+
+$brand-color: #009de6;  //#0277BD
+
+$primary-text-color: $dark-color;
+$secondary-text-color: $gray-color-dark;
+$tertiary-text-color: $gray-color;
+$divider-color: $gray-color-light;
+$success-light-color: lighten($success-color, 40%) !default;
+$warning-light-color: lighten($warning-color, 40%) !default;
+$error-light-color: lighten($error-color, 35%) !default;
+
+
+//material design color --500
+
+$red-dark: #aa2e25 !default;
+$red: #f44336 !default;
+$red-light: #f6685e !default;
+
+//$pink: #e91e63
+//$pink-dark: #e91e63
+//$pink-light: #e91e63
+//
+//$purple: #9c27b0
+//$purple-dark: #6d1b7b
+//$purple-light: #af52bf
+//
+//$purple-deep: #673ab7
+//$purple-deep-dark: #482880
+//$purple-deep-light: #8561c5
+//
+//$indigo: #3f51b5
+//$indigo-dark: #2c387e
+//$indigo-light:#6573c3
+//
+//$blue: #2196f3
+//$blue-dark: #1769aa
+//$blue-light: #4dabf5
+
+
+
