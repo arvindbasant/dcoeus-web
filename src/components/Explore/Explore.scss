@@ -1,0 +1,154 @@
+@import "../../styles/colors";
+
+.explore {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__toolbar {
+    height: 3.25rem;
+    background-color: $bg-color;
+    border-bottom: 0.075rem solid $border-color;
+  }
+
+  &__main {
+    height: 100%;
+    display: flex;
+
+    &__first {
+      width: 12.5rem;
+      padding: 0.25rem;
+      border-right: 0.075rem solid $border-color;
+    }
+
+    &__second {
+      width: 14.5rem;
+      border-right: 0.075rem solid $border-color;
+
+      .wrapper-title {
+        padding: 0.5rem;
+        color: #004261;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: flex;
+
+        i {
+          font-size: 1rem;
+          padding-right: 0.5rem;
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .type-wrapper {
+        .group-field-wrapper-title {
+          @extend .wrapper-title;
+        }
+        height: 20rem;
+      }
+
+      .expression-wrapper {
+        .filter-wrapper-title {
+          @extend .wrapper-title;
+        }
+      }
+    }
+
+    &__third {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      background-color: #f5f5f5;
+
+      &__axis {
+        background-color: white;
+        border-bottom: 0.075rem solid $border-color;
+
+        .field-dropper__label {
+          width: 6.5rem !important;
+        }
+
+      }
+
+      &__main {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        &__wrapper {
+          display: flex;
+          flex: 1;
+
+          &__chart {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+
+            &__plot {
+              background-color: #ffffff;
+              border-radius: 0.25rem;
+              border: 1px solid $border-color;
+              display: flex;
+              flex: 1;
+              margin-right: 2rem;
+            }
+
+            &__pager {
+              display: flex;
+              justify-content: center;
+              margin: 1.5rem 2rem;
+            }
+          }
+
+        }
+
+
+      }
+
+      &__toolbar {
+        background-color: $gray-color-light;
+        height: 1.75rem;
+      }
+    }
+
+    &__last {
+      width: 15rem;
+      border-left: 0.075rem solid $border-color;
+    }
+  }
+}
+
+
+
+
+// &__pager {
+//   width: 6rem;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+
+//   ul {
+//     vertical-align: middle;
+
+//     li {
+//       display: table !important;
+//       margin: 0.5rem 0;
+
+//     }
+
+//     li.ant-pagination-item-active {
+//       background-color: #1890ff;
+
+//       a {
+//         color: white;
+//       }
+//     }
+
+//     li:first-child,
+//     li:last-child,
+//     .ant-pagination-jump-prev-custom-icon,
+//     .ant-pagination-jump-next-custom-icon {
+//       transform: rotate(90deg);
+//     }
+//   }
+// }

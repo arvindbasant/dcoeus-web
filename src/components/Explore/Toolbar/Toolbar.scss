@@ -1,0 +1,13 @@
+.toolbar {
+  &__actions {
+    ul {
+      list-style-type: none;
+      margin: 0;
+
+      li {
+        float: left;
+        padding: 1rem;
+      }
+    }
+  }
+}

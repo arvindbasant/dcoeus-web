@@ -1,0 +1,15 @@
+.column-list {
+  padding: 0.25rem 0.5rem;
+
+  &__label {
+    text-transform: capitalize;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    color: #004261;
+  }
+
+  &__item {
+    margin: 0.5rem;
+  }
+}

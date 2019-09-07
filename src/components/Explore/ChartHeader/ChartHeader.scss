@@ -1,0 +1,24 @@
+@import '../../../styles/colors';
+
+.chart-header {
+  margin: 1rem;
+
+  input {
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 500;
+    resize: none;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-bottom: 0.075rem solid transparent;
+    border-radius: 0.25rem;
+    padding-left: 0.5rem;
+
+  }
+
+  input:focus {
+    border-bottom: 0.075rem solid $border-color;
+    background-color: $light-color;
+  }
+}

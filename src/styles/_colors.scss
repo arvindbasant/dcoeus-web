@@ -1,7 +1,7 @@
 // Core colors
 $primary-color: #0277BD !default;
 $primary-color-dark: darken($primary-color, 3%) !default;
-$primary-color-light: lighten($primary-color, 3%) !default;
+$primary-color-light: lighten($primary-color, 55%) !default;
 $secondary-color: lighten($primary-color, 56.5%) !default;
 $secondary-color-dark: darken($secondary-color, 3%) !default;
 $secondary-color-light: lighten($secondary-color, 3%) !default;
@@ -43,6 +43,8 @@ $divider-color: $gray-color-light;
 $success-light-color: lighten($success-color, 40%) !default;
 $warning-light-color: lighten($warning-color, 40%) !default;
 $error-light-color: lighten($error-color, 35%) !default;
+
+
 
 
 //material design color --500
