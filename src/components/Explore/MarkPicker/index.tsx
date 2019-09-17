@@ -2,11 +2,11 @@ import React from 'react';
 import { CHART_TYPES } from 'components/constants';
 import { Icon, Tooltip } from 'antd';
 
-import './ChartSelector.scss';
+import './MarkPicker.scss';
 
-const ChartSelector: React.FC = () => {
+const MarkPicker: React.FC = () => {
   return (
-    <div className="chart-selector">
+    <div className="mark-picker">
       <ul>
         {CHART_TYPES.map(({ label, icon }, index) => (
           <li key={index} >
@@ -20,4 +20,4 @@ const ChartSelector: React.FC = () => {
   );
 };
 
-export default ChartSelector;
+export default MarkPicker;

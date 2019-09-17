@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { DATA_COLUMNS } from 'components/constants';
-import Column from '../Column';
+import Field from '../Field';
 import { Draggable } from 'components/Draggable';
 import './ColumnLIst.scss';
 
@@ -11,7 +11,7 @@ const renderFields = (fieldType: 'ordinal' | 'temporal' | 'quantitative' | 'nomi
     <div className="column-list__label">{fieldType}</div>
     {DATA_COLUMNS.filter(val => val.type === fieldType).map(({ name, type }, index) => (
       <Draggable name={name} key={index} cssClass="column-list__item">
-        <Column name={name} type={type} />
+        <Field name={name} type={type} />
       </Draggable>
     ))}
   </Fragment>

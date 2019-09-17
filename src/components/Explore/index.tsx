@@ -4,13 +4,16 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import './Explore.scss';
-import ChartSelector from './ChartSelector';
+import MarkPicker from './MarkPicker';
 import { Pagination, Icon, Collapse } from 'antd';
 import ColumnList from './ColumnList';
 import DatasourceSelector from './DatasourcsSelector';
 import ChartHeader from './ChartHeader';
-import FieldDropper from './FieldDropper';
+import EncodingShelf from './EncodingShelf';
 import BookmarkList from './BookmarkList';
+import { VegaLite } from 'components/VegaLite';
+import { TopLevelSpec } from 'vega-lite';
+import { Chart } from './Chart';
 
 export default function Explore() {
   const { Panel } = Collapse;
@@ -26,6 +29,45 @@ export default function Explore() {
     overflow: 'hidden',
     border: 'none'
   };
+
+  const spec1 = {
+    'description': 'A simple bar chart with embedded data.',
+    'mark': 'bar',
+    'data': {
+      'values': [
+        { 'a': 'A', 'b': 20 }, { 'a': 'B', 'b': 34 }, { 'a': 'C', 'b': 55 },
+        { 'a': 'D', 'b': 19 }, { 'a': 'E', 'b': 40 }, { 'a': 'F', 'b': 34 },
+        { 'a': 'G', 'b': 91 }, { 'a': 'H', 'b': 78 }, { 'a': 'I', 'b': 25 }
+      ]
+    },
+    'encoding': {
+      'x': { 'field': 'a', 'type': 'ordinal' },
+      'y': { 'field': 'b', 'type': 'quantitative' }
+    }
+  } as TopLevelSpec;
+
+  const spec = {
+    'description': 'A simple bar chart with embedded data.',
+    'data': {
+      'name': 'tbl',
+      'values': [
+        { 'a': 'a', 'b': 28 },
+        { 'a': 'B', 'b': 55 },
+        { 'a': 'C', 'b': 43 },
+        { 'a': 'D', 'b': 91 },
+        { 'a': 'E', 'b': 81 },
+        { 'a': 'F', 'b': 53 },
+        { 'a': 'G', 'b': 19 },
+        { 'a': 'H', 'b': 87 },
+        { 'a': 'I', 'b': 52 }
+      ]
+    },
+    'mark': 'bar',
+    'encoding': {
+      'x': { 'field': 'a', 'type': 'ordinal' },
+      'y': { 'field': 'b', 'type': 'quantitative' }
+    }
+  } as TopLevelSpec;
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -44,11 +86,11 @@ export default function Explore() {
                 <Icon type="project" />Group
               </div>
 
-              <FieldDropper name={'Color'} />
-              <FieldDropper name={'Size'} />
-              <FieldDropper name={'Shape'} />
-              <FieldDropper name={'Detail'} />
-              <FieldDropper name={'Text'} />
+              <EncodingShelf name={'Color'} />
+              <EncodingShelf name={'Size'} />
+              <EncodingShelf name={'Shape'} />
+              <EncodingShelf name={'Detail'} />
+              <EncodingShelf name={'Text'} />
             </div>
             <div className={'expression-wrapper'}>
               <div className={'filter-wrapper-title'}>
@@ -61,15 +103,18 @@ export default function Explore() {
           </div>
           <div className={'explore__main__third'}>
             <div className="explore__main__third__axis">
-              <FieldDropper name={'Columns'} icon={{ name: 'menu', style: { transform: 'rotate(90deg)' } }} />
-              <FieldDropper name={'Rows'} icon={{ name: 'menu' }} />
+              <EncodingShelf name={'Columns'} icon={{ name: 'menu', style: { transform: 'rotate(90deg)' } }} />
+              <EncodingShelf name={'Rows'} icon={{ name: 'menu' }} />
             </div>
             <ChartHeader />
             <div className="explore__main__third__main">
               <div className="explore__main__third__main__wrapper">
-                <ChartSelector />
+                <MarkPicker />
                 <div className="explore__main__third__main__wrapper__chart">
-                  <div className="explore__main__third__main__wrapper__chart__plot">plot</div>
+                  <div className="explore__main__third__main__wrapper__chart__plot">
+                    <VegaLite spec={spec} renderer="svg" />
+                    {/* <Chart chartSpec={spec} /> */}
+                  </div>
                   <div className="explore__main__third__main__wrapper__chart__pager">
                     <Pagination defaultCurrent={1} total={100} />
                   </div>
