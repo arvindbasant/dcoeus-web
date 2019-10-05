@@ -1,11 +1,22 @@
 @import "../../../styles/colors";
 
+.field--popover {
+  .ant-popover-arrow {
+    display: none !important;
+  }
+
+  .ant-popover-content {
+    margin-top: -0.65rem !important;
+  }
+}
+
+
 %item {
   border: 1px solid;
-  padding: 0 0.5rem;
+  padding: 0 0.25rem;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
   text-transform: capitalize;
   line-height: 1.75rem;
   font-weight: 600;
@@ -14,6 +25,15 @@
   color: #004261;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
+  display: flex;
+
+  &__popup {
+    padding-right: 0.25rem;
+  }
+
+  &__remove {
+    padding-left: 0.25rem;
+  }
 }
 
 %item-icon {
@@ -28,6 +48,12 @@
   display: flex;
   align-items: center;
   color: white;
+}
+
+%label {
+  max-width: 7.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .field {
@@ -45,13 +71,33 @@
     @extend %item;
     background-color: $success-light-color;
     border-color: $success-color;
+
+    &__label {
+      @extend %label;
+    }
+
+    &__popup {
+      padding-right: 0.25rem;
+    }
+
+    &__remove {
+      padding-left: 0.25rem;
+    }
   }
 
   &__quantitative {
     @extend %item;
     background-color: $primary-color-light;
     border-color: $primary-color;
-    ;
+
+    &__label {
+      @extend %label;
+    }
+
+    &__popup {
+      padding-right: 0.25rem;
+    }
+
   }
 
 
@@ -59,12 +105,21 @@
     @extend %item-icon;
     background-color: $primary-color;
     border-color: $primary-color;
+
   }
 
   &__ordinal {
     @extend %item;
     background-color: $warning-light-color;
     border-color: $warning-color;
+
+    &__label {
+      @extend %label;
+    }
+
+    &__popup {
+      padding-right: 0.25rem;
+    }
 
   }
 
@@ -79,6 +134,14 @@
     @extend %item;
     background-color: $error-light-color;
     border-color: $error-color;
+
+    &__label {
+      @extend %label;
+    }
+
+    &__popup {
+      padding-right: 0.25rem;
+    }
 
   }
 

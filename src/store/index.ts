@@ -9,9 +9,10 @@ import {
   StoreEnhancer
 } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { createRootReducer } from './root-reducer';
+import { createRootReducer } from '../reducers/root-reducer';
 import { ApplicationState, DEFAULT_APPLICATION_STATE } from './types';
 import { createBrowserHistory } from 'history';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export const sagaMiddleware = createSagaMiddleware();
 export const history = createBrowserHistory();
@@ -22,7 +23,7 @@ export function configureStore(defaultState: ApplicationState = DEFAULT_APPLICAT
   const store: Store<ApplicationState> = createStore(
     createRootReducer(history),
     defaultState,
-    composeEnhancers(applyMiddleware(...middleware) as StoreEnhancer<any>)
+    composeWithDevTools(applyMiddleware(...middleware) as StoreEnhancer<any>)
   );
   return store;
 }

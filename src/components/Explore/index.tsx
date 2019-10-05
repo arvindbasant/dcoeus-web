@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Toolbar from './Toolbar';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-
-import './Explore.scss';
 import MarkPicker from './MarkPicker';
 import { Pagination, Icon, Collapse } from 'antd';
-import ColumnList from './ColumnList';
+import FieldList from './FieldList';
 import DatasourceSelector from './DatasourcsSelector';
 import ChartHeader from './ChartHeader';
-import EncodingShelf from './EncodingShelf';
 import BookmarkList from './BookmarkList';
 import { VegaLite } from 'components/VegaLite';
 import { TopLevelSpec } from 'vega-lite';
-import { Chart } from './Chart';
+import EncodingPane from './EncodingPane';
+
+import './Explore.scss';
+import { useSelector } from 'react-redux';
+import { ApplicationState } from 'store/types';
 
 export default function Explore() {
   const { Panel } = Collapse;
+  const chartSpec = useSelector((state: ApplicationState) => state.spec);
   const text = `
   A dog is a type of domesticated animal.
   Known for its loyalty and faithfulness,
@@ -78,19 +80,14 @@ export default function Explore() {
         <div className="explore__main">
           <div className={'explore__main__first'}>
             <DatasourceSelector />
-            <ColumnList />
+            <FieldList />
           </div>
           <div className="explore__main__second">
             <div className={'type-wrapper'}>
               <div className={'group-field-wrapper-title'}>
                 <Icon type="project" />Group
               </div>
-
-              <EncodingShelf name={'Color'} />
-              <EncodingShelf name={'Size'} />
-              <EncodingShelf name={'Shape'} />
-              <EncodingShelf name={'Detail'} />
-              <EncodingShelf name={'Text'} />
+              <EncodingPane isNonPosinalEncoding={true} spec={chartSpec} />
             </div>
             <div className={'expression-wrapper'}>
               <div className={'filter-wrapper-title'}>
@@ -103,8 +100,7 @@ export default function Explore() {
           </div>
           <div className={'explore__main__third'}>
             <div className="explore__main__third__axis">
-              <EncodingShelf name={'Columns'} icon={{ name: 'menu', style: { transform: 'rotate(90deg)' } }} />
-              <EncodingShelf name={'Rows'} icon={{ name: 'menu' }} />
+              <EncodingPane isNonPosinalEncoding={false} spec={chartSpec} />
             </div>
             <ChartHeader />
             <div className="explore__main__third__main">

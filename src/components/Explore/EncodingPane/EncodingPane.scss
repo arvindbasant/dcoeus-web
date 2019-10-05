@@ -1,11 +1,7 @@
 @import "../../../styles/colors";
 
-.axis {
-  background-color: white;
-  border-bottom: 0.075rem solid $border-color;
-
-
-  &__item-wrapper {
+.encoding-pane {
+  &__shelf-wrapper {
     border-radius: 0.25rem;
     border: 0.075rem solid $border-color;
     background-color: white;
@@ -14,19 +10,19 @@
     display: flex;
 
     &__label {
-      width: 5.5rem;
       height: 100%;
+      min-width: 3rem;
       background-color: $gray-color-light;
       display: flex;
       align-items: center;
       padding: 0.5rem;
       text-transform: capitalize;
       color: #004261;
+      font-weight: 600;
+      font-size: 0.75rem;
 
-      div {
-        padding-left: 0.5rem;
-        font-weight: 600;
-        font-size: 0.75rem;
+      i {
+        padding: 0.25rem;
       }
     }
   }

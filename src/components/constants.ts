@@ -1,3 +1,9 @@
+import { ShelfFieldDef } from 'models/shelf/spec';
+
+export const DraggableTypes = {
+  FIELD: 'field',
+};
+
 export const TOOLBAR_ITMES = [
   { label: 'undo', icon: 'arrow-left' },
   { label: 'redo', icon: 'arrow-right' },
@@ -28,19 +34,4 @@ export const CHART_TYPES = [
   { label: 'box plot', icon: 'box-plot' },
   { label: 'fund', icon: 'fund' },
   { label: 'sliders', icon: 'sliders' },
-];
-
-export const DATA_COLUMNS: Array<{name: string, type: 'ordinal' | 'temporal' | 'quantitative' | 'nominal'}> = [
-  { name: 'cylinders', type: 'nominal' },
-  { name: 'Name', type: 'nominal' },
-  { name: 'Origin', type: 'nominal' },
-  { name: 'Year', type: 'temporal' },
-  { name: 'Count', type: 'quantitative' },
-  { name: 'Acceleration', type: 'quantitative' },
-  { name: 'Displacement', type: 'quantitative' },
-  { name: 'Horsepower', type: 'quantitative' },
-  { name: 'Miles per gallon', type: 'quantitative' },
-  { name: 'Weight in lbs', type: 'quantitative' },
-  { name: 'Pollution rating', type: 'ordinal' },
-
 ];
