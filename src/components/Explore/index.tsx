@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Toolbar from './Toolbar';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -11,66 +11,33 @@ import BookmarkList from './BookmarkList';
 import { VegaLite } from 'components/VegaLite';
 import { TopLevelSpec } from 'vega-lite';
 import EncodingPane from './EncodingPane';
-
+import axios from 'axios';
 import './Explore.scss';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from 'store/types';
+import { ShelfUnitSpec, SpecificEncoding } from 'models/shelf/spec';
+
+// function createQueryAttr(spec: ShelfUnitSpec) {
+//   for (let val in spec.encoding) {
+//     const z = spec.encoding[val];
+//   }
+// }
 
 export default function Explore() {
-  const { Panel } = Collapse;
   const chartSpec = useSelector((state: ApplicationState) => state.spec);
-  const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+  const [data, setData] = useState({ values: [] });
 
-  const customPanelStyle = {
-    // background: '#f7f7f7',
-    // borderBottom: '0.075rem solid #e7e9ed',
-    overflow: 'hidden',
-    border: 'none'
-  };
-
-  const spec1 = {
-    'description': 'A simple bar chart with embedded data.',
-    'mark': 'bar',
-    'data': {
-      'values': [
-        { 'a': 'A', 'b': 20 }, { 'a': 'B', 'b': 34 }, { 'a': 'C', 'b': 55 },
-        { 'a': 'D', 'b': 19 }, { 'a': 'E', 'b': 40 }, { 'a': 'F', 'b': 34 },
-        { 'a': 'G', 'b': 91 }, { 'a': 'H', 'b': 78 }, { 'a': 'I', 'b': 25 }
-      ]
-    },
-    'encoding': {
-      'x': { 'field': 'a', 'type': 'ordinal' },
-      'y': { 'field': 'b', 'type': 'quantitative' }
-    }
-  } as TopLevelSpec;
-
-  const spec = {
-    'description': 'A simple bar chart with embedded data.',
-    'data': {
-      'name': 'tbl',
-      'values': [
-        { 'a': 'a', 'b': 28 },
-        { 'a': 'B', 'b': 55 },
-        { 'a': 'C', 'b': 43 },
-        { 'a': 'D', 'b': 91 },
-        { 'a': 'E', 'b': 81 },
-        { 'a': 'F', 'b': 53 },
-        { 'a': 'G', 'b': 19 },
-        { 'a': 'H', 'b': 87 },
-        { 'a': 'I', 'b': 52 }
-      ]
-    },
-    'mark': 'bar',
-    'encoding': {
-      'x': { 'field': 'a', 'type': 'ordinal' },
-      'y': { 'field': 'b', 'type': 'quantitative' }
-    }
-  } as TopLevelSpec;
-
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        'http://localhost:8080/cars',
+      );
+      setData({ values: result.data.table });
+    };
+    fetchData();
+  }, [chartSpec.encoding]);
+  const spec = { ...chartSpec, data } as TopLevelSpec;
+  console.log('spec', spec);
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="explore">
@@ -108,8 +75,7 @@ export default function Explore() {
                 <MarkPicker />
                 <div className="explore__main__third__main__wrapper__chart">
                   <div className="explore__main__third__main__wrapper__chart__plot">
-                    <VegaLite spec={spec} renderer="svg" />
-                    {/* <Chart chartSpec={spec} /> */}
+                    {data.values.length > 0 && <VegaLite spec={spec} renderer="svg" />}
                   </div>
                   <div className="explore__main__third__main__wrapper__chart__pager">
                     <Pagination defaultCurrent={1} total={100} />

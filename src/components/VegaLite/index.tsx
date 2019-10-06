@@ -110,31 +110,31 @@ export class VegaLite extends React.PureComponent<VegaLiteProps, VegaLiteState> 
 
   protected updateSpec() {
     // NOTE: spec used to test warning logger
-    const vlSpec = {
-      'description': 'A simple bar chart with embedded data.',
-      'width': 600,
-      'height': 500,
-      'data': {
-        'values': [
-          { 'a': 'A', 'b': 28 },
-          { 'a': 'B', 'b': 55 },
-          { 'a': 'C', 'b': 43 },
-          { 'a': 'D', 'b': 91 },
-          { 'a': 'E', 'b': 81 },
-          { 'a': 'F', 'b': 53 },
-          { 'a': 'G', 'b': 19 }, 
-          { 'a': 'H', 'b': 87 },
-          { 'a': 'I', 'b': 52 }
-        ]
-      },
-      'mark': 'bar',
-      'encoding': {
-        'x': { 'field': 'a', 'type': 'ordinal' },
-        'y': { 'field': 'b', 'type': 'quantitative' }
-      }
-    } as TopLevelSpec;
+    // const vlSpec = {
+    //   'description': 'A simple bar chart with embedded data.',
+    //   'width': 600,
+    //   'height': 500,
+    //   'data': {
+    //     'values': [
+    //       { 'a': 'A', 'b': 28 },
+    //       { 'a': 'B', 'b': 55 },
+    //       { 'a': 'C', 'b': 43 },
+    //       { 'a': 'D', 'b': 91 },
+    //       { 'a': 'E', 'b': 81 },
+    //       { 'a': 'F', 'b': 53 },
+    //       { 'a': 'G', 'b': 19 }, 
+    //       { 'a': 'H', 'b': 87 },
+    //       { 'a': 'I', 'b': 52 }
+    //     ]
+    //   },
+    //   'mark': 'bar',
+    //   'encoding': {
+    //     'x': { 'field': 'a', 'type': 'ordinal' },
+    //     'y': { 'field': 'b', 'type': 'quantitative' }
+    //   }
+    // } as TopLevelSpec;
     // const { logger } = this.props;
-    // const vlSpec = this.props.spec;
+    const vlSpec = this.props.spec;
     try {
       const spec = vl.compile(vlSpec).spec;
       const runtime = vega.parse(spec, vlSpec.config);
@@ -146,7 +146,7 @@ export class VegaLite extends React.PureComponent<VegaLiteProps, VegaLiteState> 
       vegaTooltip.default(this.view, { offsetX: 500, offsetY: 800 });
       this.bindData();
     } catch (err) {
-      // logger.error(err);
+      console.log(err);
     }
   }
 
@@ -168,14 +168,19 @@ export class VegaLite extends React.PureComponent<VegaLiteProps, VegaLiteState> 
       }
     } catch (err) {
       // this.props.logger.error(err);
+      console.log(err);
+
     }
   }
 
   private getChartSize(): { width: number, height: number } {
     const chart = this.refs[CHART_REF] as HTMLElement;
     const chartContainer = chart.querySelector(this.props.renderer || 'canvas');
-    const width = Number(chartContainer!.getAttribute('width'));
-    const height = Number(chartContainer!.getAttribute('height'));
-    return { width, height };
+    if (chartContainer) {
+      const width = Number(chartContainer.getAttribute('width'));
+      const height = Number(chartContainer!.getAttribute('height'));
+      return { width, height };
+    }
+    return { width: 100, height: 100 };
   }
 }
