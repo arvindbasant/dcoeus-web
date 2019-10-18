@@ -4,10 +4,10 @@ import { ShelfFieldDef, ShelfId } from 'models/shelf/spec';
 import { Type } from 'vega-lite/build/src/type';
 import { useDrag, DragSourceMonitor } from 'react-dnd';
 import { DraggableTypes } from 'components/constants';
-import { useDispatch } from 'react-redux';
-import { SpecActions } from 'actions/shelf/spec';
+import { SpecActions } from 'context/shelf/specActions';
 
 import './Field.scss';
+import { useStore } from 'context';
 
 export enum FieldParentType {
   ENCODING_SHELF,
@@ -52,7 +52,7 @@ const renderFieldLabel = (fieldDef: ShelfFieldDef) => {
 
 const Field: React.FC<FieldProps> = ({ fieldDef, isPill, onRemove, popupComponent, parentId }) => {
   const { type, field } = fieldDef;
-  const dispatch = useDispatch();
+  const { state, dispatch } = useStore();
   const [{ isDragging }, drag] = useDrag({
     item: { fieldDef, parentId, type: DraggableTypes.FIELD },
     end: (item: { fieldDef: ShelfFieldDef, parentId: FieldParentId, type: FieldParentType } | undefined, monitor: DragSourceMonitor) => {

@@ -2,16 +2,16 @@ import React from 'react';
 import { CHART_TYPES } from 'components/constants';
 import { Icon, Tooltip } from 'antd';
 
-import { useSelector, useDispatch } from 'react-redux';
 import { Mark, PRIMITIVE_MARKS } from 'vega-lite/build/src/mark';
-import { SpecActions } from 'actions/shelf/spec';
+import { SpecActions } from 'context/shelf/specActions';
 import { ShelfMark, SHORT_WILDCARD } from 'models/shelf/spec';
 import './MarkPicker.scss';
+import { useStore } from 'context';
 
 const ALL_MARKS = [...PRIMITIVE_MARKS];
 
 const MarkPicker: React.FC = () => {
-  const dispatch = useDispatch();
+  const { dispatch } = useStore();
 
   const onMarkChange = (mark: ShelfMark | SHORT_WILDCARD) => {
     dispatch(SpecActions.markChange(mark));

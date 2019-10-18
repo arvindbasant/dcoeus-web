@@ -1,11 +1,12 @@
 import { ShelfUnitSpec, DEFAULT_SHELF_UNIT_SPEC, ShelfId, ShelfFieldDef } from 'models/shelf/spec';
-import { SpecActions } from 'actions/shelf/spec';
+import { SpecActions } from 'context/shelf/specActions';
 import { FieldDef, ValueDef, Value } from 'vega-lite/build/src/channeldef';
+import { Reducer } from 'react';
 
-export function shelfSpecReducer(
+const shelfSpecReducer: Reducer<ShelfUnitSpec, SpecActions> = (
   shelfSpec: Readonly<ShelfUnitSpec> = DEFAULT_SHELF_UNIT_SPEC,
   action: SpecActions
-): ShelfUnitSpec {
+): ShelfUnitSpec => {
   switch (action.type) {
     case 'SPEC_CLEAR':
       return DEFAULT_SHELF_UNIT_SPEC;
@@ -56,10 +57,9 @@ export function shelfSpecReducer(
 
   }
   return shelfSpec;
-}
+};
 
 function addEncoding(shelf: Readonly<ShelfUnitSpec>, shelfId: ShelfId, fieldDef: ShelfFieldDef | undefined | ValueDef, replace: boolean) {
-  console.log('testttt', fieldDef);
   if (!fieldDef) {
     return shelf;
   } else {
@@ -96,6 +96,8 @@ function removeEncoding(shelf: Readonly<ShelfUnitSpec>, shelfId: ShelfId): { fie
     }
   };
 }
+
+export default shelfSpecReducer;
 
 // export function modifyFieldProp(
 //   fieldDef: Readonly<AnyFieldDef>,

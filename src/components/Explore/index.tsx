@@ -3,7 +3,7 @@ import Toolbar from './Toolbar';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import MarkPicker from './MarkPicker';
-import { Pagination, Icon, Collapse } from 'antd';
+import { Pagination, Icon } from 'antd';
 import FieldList from './FieldList';
 import DatasourceSelector from './DatasourcsSelector';
 import ChartHeader from './ChartHeader';
@@ -13,9 +13,8 @@ import { TopLevelSpec } from 'vega-lite';
 import EncodingPane from './EncodingPane';
 import axios from 'axios';
 import './Explore.scss';
-import { useSelector } from 'react-redux';
-import { ApplicationState } from 'store/types';
-import { ShelfUnitSpec, SpecificEncoding } from 'models/shelf/spec';
+import { useStore } from 'context';
+import { DatasetActions } from 'context/dataset/datasetActions';
 
 // function createQueryAttr(spec: ShelfUnitSpec) {
 //   for (let val in spec.encoding) {
@@ -24,20 +23,24 @@ import { ShelfUnitSpec, SpecificEncoding } from 'models/shelf/spec';
 // }
 
 export default function Explore() {
-  const chartSpec = useSelector((state: ApplicationState) => state.spec);
-  const [data, setData] = useState({ values: [] });
+  const { state, dispatch } = useStore();
+  const { shelfSpec, dataset } = state;
+
+  // const [data, setData] = useState({ values: [] });
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
         'http://localhost:8080/cars',
       );
-      setData({ values: result.data.table });
+      dispatch(DatasetActions.loadData({ values: result.data.table }));
+      // setData({ values: result.data.table });
     };
     fetchData();
-  }, [chartSpec.encoding]);
-  const spec = { ...chartSpec, data } as TopLevelSpec;
-  console.log('spec', spec);
+    // tslint:disable-next-line: align
+  }, [shelfSpec.encoding]);
+
+  const spec = { ...shelfSpec, data: dataset.data } as TopLevelSpec;
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="explore">
@@ -54,7 +57,7 @@ export default function Explore() {
               <div className={'group-field-wrapper-title'}>
                 <Icon type="project" />Group
               </div>
-              <EncodingPane isNonPosinalEncoding={true} spec={chartSpec} />
+              <EncodingPane isNonPosinalEncoding={true} spec={shelfSpec} />
             </div>
             <div className={'expression-wrapper'}>
               <div className={'filter-wrapper-title'}>
@@ -67,7 +70,7 @@ export default function Explore() {
           </div>
           <div className={'explore__main__third'}>
             <div className="explore__main__third__axis">
-              <EncodingPane isNonPosinalEncoding={false} spec={chartSpec} />
+              <EncodingPane isNonPosinalEncoding={false} spec={shelfSpec} />
             </div>
             <ChartHeader />
             <div className="explore__main__third__main">
@@ -75,7 +78,7 @@ export default function Explore() {
                 <MarkPicker />
                 <div className="explore__main__third__main__wrapper__chart">
                   <div className="explore__main__third__main__wrapper__chart__plot">
-                    {data.values.length > 0 && <VegaLite spec={spec} renderer="svg" />}
+                    {dataset && <VegaLite spec={spec} renderer="svg" />}
                   </div>
                   <div className="explore__main__third__main__wrapper__chart__pager">
                     <Pagination defaultCurrent={1} total={100} />

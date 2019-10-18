@@ -3,12 +3,12 @@ import Field, { FieldParentType } from '../Field';
 import { Type } from 'vega-lite/build/src/type';
 import FunctionPicker from '../FunctionPicker';
 import { ShelfFieldDef } from 'models/shelf/spec';
-import { useDispatch, useSelector } from 'react-redux';
-import { DatasetActions } from 'actions/datasetActions';
-import { ApplicationState } from 'store/types';
+import { DatasetActions } from 'context/dataset/datasetActions';
+import { ApplicationState } from 'context/types';
 import { Dataset } from 'models/dataset';
 
 import './FieldList.scss';
+import { useStore } from 'context';
 
 const SUPPORTED_FIELD_TYPES: Type[] = ['nominal', 'quantitative', 'ordinal', 'temporal'];
 
@@ -44,8 +44,11 @@ const renderFields = (fieldType: Type, index: number, dispatch: any, dataset: Da
 );
 
 const FieldList = () => {
-  const dispatch = useDispatch();
-  const dataset = useSelector((state: ApplicationState) => state.dataset);
+  // const dispatch = useDispatch();
+  // const dataset = useSelector((state: ApplicationState) => state.dataset);
+
+  const { state, dispatch } = useStore();
+  const dataset = state.dataset;
 
   return (
     <div className="field-list">

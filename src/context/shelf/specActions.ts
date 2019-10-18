@@ -1,6 +1,6 @@
-import { ActionUnion } from 'actions/util/actionUnion';
+import { ActionUnion } from 'context/util/actionUnion';
 import { ShelfMark, ShelfId, ShelfFieldDef, SHORT_WILDCARD, ShelfValueDef } from 'models/shelf/spec';
-import { createAction } from 'actions/util/createAction';
+import { createAction } from 'context/util/createAction';
 import { ShelfFunction } from 'models/shelf/spec/shelfFunction';
 import { TopLevelSpec } from 'vega-lite';
 
@@ -13,17 +13,17 @@ export const SpecActions = {
   specFunctionChange: (shelfId: ShelfId, fn: ShelfFunction) => createAction('SPEC_FUNCTION_CHANGE', { shelfId, fn }),
   specLoad: (spec: TopLevelSpec) => createAction('SPEC_LOAD', { spec }),
   specClear: () => createAction('SPEC_CLEAR'),
-  // specFieldPropChange: <P extends 'sort' | 'stack'>(
-  //   shelfId: ShelfId,
-  //   prop: P,
-  //   value: ShelfFieldDef[P],
-  // ) => createAction('SPEC_FIELD_PROP_CHANGE', { shelfId, prop, value }),
-  // specFieldNestedPropChange: <P extends 'scale' | 'axis' | 'legend', N extends (keyof ShelfFieldDef[P])>(
-  //   shelfId: ShelfId,
-  //   prop: P,
-  //   nestedProp: N,
-  //   value: ShelfFieldDef[P][N],
-  // ) => createAction('SPEC_FIELD_NESTED_PROP_CHANGE', { shelfId, prop, nestedProp, value }),
+  specFieldPropChange: <P extends 'sort' | 'stack'>(
+    shelfId: ShelfId,
+    prop: P,
+    value: ShelfFieldDef[P],
+  ) => createAction('SPEC_FIELD_PROP_CHANGE', { shelfId, prop, value }),
+  specFieldNestedPropChange: <P extends 'scale' | 'axis' | 'legend', N extends (keyof ShelfFieldDef[P])>(
+    shelfId: ShelfId,
+    prop: P,
+    nestedProp: N,
+    value: ShelfFieldDef[P][N],
+  ) => createAction('SPEC_FIELD_NESTED_PROP_CHANGE', { shelfId, prop, nestedProp, value }),
 };
 
 export type SpecActions = ActionUnion<typeof SpecActions>;

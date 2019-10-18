@@ -1,5 +1,5 @@
 import { DEFAULT_DATASET, Dataset } from 'models/dataset';
-import { DatasetActions } from 'actions/datasetActions';
+import { DatasetActions } from 'context/dataset/datasetActions';
 import { ShelfFieldDef, ShelfFunction } from 'models/shelf/spec';
 
 export function datasetReducer(
@@ -7,7 +7,7 @@ export function datasetReducer(
   action: DatasetActions): Dataset {
   switch (action.type) {
     case '@@dataset/LOAD_DATA':
-      return DEFAULT_DATASET;
+      return { ...DEFAULT_DATASET, data: action.payload };
     case '@@data/UPDATE_TABLE_SCHEMA':
       const { field, fieldDefParam } = action.payload;
       return { ...data, tableSchema: updateTableSchema(data.tableSchema, field, fieldDefParam) };

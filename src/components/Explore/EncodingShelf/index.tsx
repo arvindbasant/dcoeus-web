@@ -5,10 +5,10 @@ import { DraggableTypes } from 'components/constants';
 import classnames from 'classnames';
 import Field, { FieldParentType } from '../Field';
 import FunctionPicker from '../FunctionPicker';
-import { useDispatch } from 'react-redux';
-import { SpecActions } from 'actions/shelf/spec';
+import { SpecActions } from 'context/shelf/specActions';
 
 import './EncodingShelf.scss';
+import { useStore } from 'context';
 
 export interface EncodingShelfProps {
   id: ShelfId;
@@ -47,7 +47,7 @@ const EncodingShelf: FC<EncodingShelfProps> = ({ id, fieldDef, valueDef }) => {
     }),
   });
   const active = highlighted && hovered;
-  const dispatch = useDispatch();
+  const { dispatch } = useStore();
 
   return (
     <div ref={drop} className={classnames('encoding-shelf', { 'encoding-shelf--active': active }, { 'encoding-shelf--can-drop': highlighted && !active })} >
