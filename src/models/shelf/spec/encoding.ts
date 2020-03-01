@@ -41,11 +41,9 @@ export interface ShelfFieldDef {
 export type SpecificEncoding =
   {
     [P in PositionScaleChannel]?: ShelfFieldDef;
-  } &
-  {
+  } & {
     [P in NonPositionScaleChannel]?: ShelfEncodingDef
-  } &
-  {
+  } & {
     text?: ShelfEncodingDef,
     detail?: ShelfFieldDef,
     order?: ShelfFieldDef,

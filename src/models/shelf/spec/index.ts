@@ -19,24 +19,6 @@ export interface ShelfUnitSpec {
   config: Config;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // export function toSpecQuery(spec: ShelfUnitSpec): SpecQuery {
 //   const config: Config = spec.config!;
 //   const encodings: EncodingQuery[] = specificEncodingsToEncodingQueries(spec.encoding).concat(spec.anyEncodings.map(

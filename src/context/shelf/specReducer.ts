@@ -54,7 +54,6 @@ const shelfSpecReducer: Reducer<ShelfUnitSpec, SpecActions> = (
         };
       });
     }
-
   }
   return shelfSpec;
 };

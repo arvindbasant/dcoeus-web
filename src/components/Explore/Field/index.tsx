@@ -63,8 +63,7 @@ const Field: React.FC<FieldProps> = ({ fieldDef, isPill, onRemove, popupComponen
             dispatch(SpecActions.specFieldAdd({ channel: dropResult.channel }, item.fieldDef, true));
             break;
           case FieldParentType.ENCODING_SHELF:
-            if (item.parentId.type === FieldParentType.ENCODING_SHELF) // ts looks dumb here!!
-              dispatch(SpecActions.specFieldMove(item.parentId.id, { channel: dropResult.channel }));
+            dispatch(SpecActions.specFieldMove(item.parentId.id, { channel: dropResult.channel }));
         }
       }
     },

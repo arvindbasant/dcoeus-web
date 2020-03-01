@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dropdown, Button, Icon, Menu } from 'antd';
 
+// tslint:disable-next-line: no-empty
 const handleMenuClick = () => { };
 const menu = (
   <Menu onClick={handleMenuClick}>

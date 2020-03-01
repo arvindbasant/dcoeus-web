@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { ClipLoader } from 'react-spinners';
 import * as vega from 'vega';
 import * as vl from 'vega-lite';
 import { TopLevelSpec } from 'vega-lite';
@@ -7,11 +6,12 @@ import { InlineData, isNamedData } from 'vega-lite/build/src/data';
 import * as vegaTooltip from 'vega-tooltip';
 
 import './VegaLite.scss';
+import { Icon } from 'antd';
 
 export interface VegaLiteProps {
   spec: TopLevelSpec;
   renderer?: 'svg' | 'canvas';
-  data?: InlineData;
+  data?: InlineData;  
   viewRunAfter?: (view: vega.View) => any;
 }
 
@@ -36,11 +36,11 @@ export class VegaLite extends React.PureComponent<VegaLiteProps, VegaLiteState> 
   }
 
   public render() {
+    console.log(this.state.isLoading);
     return (
       <div>
-        {/* <ClipLoader color={SPINNER_COLOR} loading={this.state.isLoading} /> */}
+        {this.state.isLoading && <Icon type="loading" spin={true} />}
         <div className="chart" ref={CHART_REF} />
-        {/* chart is defined in app.scss */}
         <div id="vis-tooltip" className="vg-tooltip" />
       </div>
     );
@@ -109,31 +109,6 @@ export class VegaLite extends React.PureComponent<VegaLiteProps, VegaLiteState> 
   }
 
   protected updateSpec() {
-    // NOTE: spec used to test warning logger
-    // const vlSpec = {
-    //   'description': 'A simple bar chart with embedded data.',
-    //   'width': 600,
-    //   'height': 500,
-    //   'data': {
-    //     'values': [
-    //       { 'a': 'A', 'b': 28 },
-    //       { 'a': 'B', 'b': 55 },
-    //       { 'a': 'C', 'b': 43 },
-    //       { 'a': 'D', 'b': 91 },
-    //       { 'a': 'E', 'b': 81 },
-    //       { 'a': 'F', 'b': 53 },
-    //       { 'a': 'G', 'b': 19 }, 
-    //       { 'a': 'H', 'b': 87 },
-    //       { 'a': 'I', 'b': 52 }
-    //     ]
-    //   },
-    //   'mark': 'bar',
-    //   'encoding': {
-    //     'x': { 'field': 'a', 'type': 'ordinal' },
-    //     'y': { 'field': 'b', 'type': 'quantitative' }
-    //   }
-    // } as TopLevelSpec;
-    // const { logger } = this.props;
     const vlSpec = this.props.spec;
     try {
       const spec = vl.compile(vlSpec).spec;
@@ -176,11 +151,12 @@ export class VegaLite extends React.PureComponent<VegaLiteProps, VegaLiteState> 
   private getChartSize(): { width: number, height: number } {
     const chart = this.refs[CHART_REF] as HTMLElement;
     const chartContainer = chart.querySelector(this.props.renderer || 'canvas');
+    console.log('chartContainer', chartContainer);
     if (chartContainer) {
       const width = Number(chartContainer.getAttribute('width'));
       const height = Number(chartContainer!.getAttribute('height'));
       return { width, height };
     }
-    return { width: 100, height: 100 };
+    return { width: 0, height: 0 };
   }
 }

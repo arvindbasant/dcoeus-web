@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Toolbar from './Toolbar';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -8,13 +8,14 @@ import FieldList from './FieldList';
 import DatasourceSelector from './DatasourcsSelector';
 import ChartHeader from './ChartHeader';
 import BookmarkList from './BookmarkList';
-import { VegaLite } from 'components/VegaLite';
 import { TopLevelSpec } from 'vega-lite';
 import EncodingPane from './EncodingPane';
-import axios from 'axios';
 import './Explore.scss';
 import { useStore } from 'context';
 import { DatasetActions } from 'context/dataset/datasetActions';
+import { Chart } from './Chart';
+import Axios from 'axios';
+import { VegaLite } from 'components/VegaLite';
 
 // function createQueryAttr(spec: ShelfUnitSpec) {
 //   for (let val in spec.encoding) {
@@ -25,19 +26,29 @@ import { DatasetActions } from 'context/dataset/datasetActions';
 export default function Explore() {
   const { state, dispatch } = useStore();
   const { shelfSpec, dataset } = state;
-
-  // const [data, setData] = useState({ values: [] });
-
   useEffect(() => {
+    const data = {
+      datasource: 'cars',
+      fields: [
+        {
+          type: 'nominal',
+          name: 'origin',
+          fn: ''
+        },
+        {
+          type: 'quantitative',
+          name: 'horsepower',
+          fn: '',
+        },
+      ]
+    };
     const fetchData = async () => {
-      const result = await axios(
-        'http://localhost:8080/cars',
-      );
+      Axios.defaults.baseURL = 'http://localhost:8080';
+      const result = await Axios.post('/data', data);
       dispatch(DatasetActions.loadData({ values: result.data.table }));
-      // setData({ values: result.data.table });
+      console.log('result', result);
     };
     fetchData();
-    // tslint:disable-next-line: align
   }, [shelfSpec.encoding]);
 
   const spec = { ...shelfSpec, data: dataset.data } as TopLevelSpec;
@@ -79,6 +90,8 @@ export default function Explore() {
                 <div className="explore__main__third__main__wrapper__chart">
                   <div className="explore__main__third__main__wrapper__chart__plot">
                     {dataset && <VegaLite spec={spec} renderer="svg" />}
+                    {/* {dataset && <Chart spec={spec} />} */}
+
                   </div>
                   <div className="explore__main__third__main__wrapper__chart__pager">
                     <Pagination defaultCurrent={1} total={100} />

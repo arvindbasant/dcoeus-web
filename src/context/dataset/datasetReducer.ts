@@ -1,6 +1,6 @@
 import { DEFAULT_DATASET, Dataset } from 'models/dataset';
 import { DatasetActions } from 'context/dataset/datasetActions';
-import { ShelfFieldDef, ShelfFunction } from 'models/shelf/spec';
+import { ShelfFieldDef } from 'models/shelf/spec';
 
 export function datasetReducer(
   data: Dataset = DEFAULT_DATASET,
