@@ -11,7 +11,7 @@ import { Icon } from 'antd';
 export interface VegaLiteProps {
   spec: TopLevelSpec;
   renderer?: 'svg' | 'canvas';
-  data?: InlineData;
+  data?: InlineData;  
   viewRunAfter?: (view: vega.View) => any;
 }
 
