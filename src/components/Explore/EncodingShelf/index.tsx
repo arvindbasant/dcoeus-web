@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ShelfFieldDef, ShelfValueDef, ShelfId, ShelfChannelId } from 'models/shelf/spec';
+import { ShelfFieldDef, ShelfValueDef, ShelfId } from 'models/shelf/spec';
 import { useDrop } from 'react-dnd';
 import { DraggableTypes } from 'components/constants';
 import classnames from 'classnames';
@@ -18,9 +18,9 @@ export interface EncodingShelfProps {
 
 const renderField = ({ id, fieldDef }: EncodingShelfProps, dispatch: any) => {
 
-  const renderFunctionPicker = (fieldDef!.type === 'quantitative' || fieldDef!.type === 'temporal') && fieldDef!.field !== 'Count';
+  const canRenderFunctionPicker = (fieldDef!.type === 'quantitative' || fieldDef!.type === 'temporal') && fieldDef!.field !== 'Count';
 
-  const functionPicker = renderFunctionPicker ?
+  const functionPicker = canRenderFunctionPicker ?
     <FunctionPicker
       fieldDefParts={fieldDef!}
       onFunctionChange={(fn) => dispatch(SpecActions.specFunctionChange(id, fn))}
